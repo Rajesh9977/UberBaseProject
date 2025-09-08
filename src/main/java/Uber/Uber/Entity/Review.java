@@ -2,30 +2,33 @@ package Uber.Uber.Entity;
 
 
 import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
+
 @Table(name = "bookingreview")
-public class Review {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+public class Review extends BaseModel{
+
     String reviewContent;
 
     int rating;
 
-    @Column (nullable=false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    Date createdAt;
+    public String toString(){
+        return "review "+ this.reviewContent+ " "+this.rating+" "+this.createdAt;
+    }
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    Date deletedAt;
 
 
 }
